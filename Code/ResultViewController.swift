@@ -7,14 +7,19 @@
 //
 
 import UIKit
+import Lottie
 
 class ResultViewController: UIViewController {
     
 
     
+    @IBOutlet weak var Viewforanimate: UIView!
+    
     @IBOutlet weak var TimeLabel: UILabel!
     @IBOutlet weak var TotalLabel: UILabel!
     @IBOutlet weak var DiceLabel: UILabel!
+    let animationView=AnimationView()
+    
     var datas=0.0
     
     override func viewDidLoad() {
@@ -22,11 +27,17 @@ class ResultViewController: UIViewController {
        
         TimeLabel.text = String(format: "%.1f", UserDefaults().double(forKey:"GuessTime"))
         DiceLabel.text = String(format: "%.1f", UserDefaults().double(forKey:"DiceCountTime"))
-        
         let total=UserDefaults().double(forKey:"DiceCountTime")+UserDefaults().double(forKey:"GuessTime")
         TotalLabel.text = String(format: "%.1f", total)
         
+        animationView.frame=Viewforanimate.bounds
+        animationView.animation=Animation.named("winner")
+        animationView.contentMode = .scaleAspectFill
         
+        animationView.loopMode = .loop
+        animationView.animationSpeed=1/2
+        animationView.play()
+        Viewforanimate.addSubview(animationView)
         // Do any additional setup after loading the view.
     }
     
